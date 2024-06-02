@@ -1,0 +1,7 @@
+.env
+build/
+.DS_Store
+api/.nyc_output
+api/coverage
+node_modules
+datas/
