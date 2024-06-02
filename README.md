@@ -17,18 +17,22 @@
 - nano /etc/nginx/sites-available/sorbonne.com
 ```
 server {
-    listen 300 ssl;
+    listen 443 ssl;
     server_name effectifsdlm.hosted.lip6.fr;
 
-    ssl_certificate /root/sources/sorbonne-rh/api/src/ssl/fullchain.pem;
-    ssl_certificate_key /root/sources/sorbonne-rh/api/src/ssl/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/auth.les-cles.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/auth.les-cles.com/privkey.pem;
+    ssl_session_cache builtin:1000 shared:SSL:10m;
+    ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
+    ssl_prefer_server_ciphers on;
 
     location / {
-       proxy_pass http://132.227.66.5:3000;
-        proxy_set_header Host $host;
-        proxy_set_header X-Real-IP $remote_addr;
-        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-        proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_set_header Host $host;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Forwarded-Proto $scheme;
+            proxy_pass https://localhost:3001;
     }
 }
 ```
