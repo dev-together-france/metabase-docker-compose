@@ -12,16 +12,16 @@
 ## Mise en place du certificat
 
 - apt install certbot python3-certbot-apache -y
-- certbot certonly --manual
+- sudo certbot -d meta.les-cles.com --manual --preferred-challenges dns certonly
 - nginx config
 - nano /etc/nginx/sites-available/sorbonne.com
 ```
 server {
     listen 443 ssl;
-    server_name effectifsdlm.hosted.lip6.fr;
+    server_name meta.les-cles.com;
 
-    ssl_certificate /etc/letsencrypt/live/auth.les-cles.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/auth.les-cles.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/meta.les-cles.com/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/meta.les-cles.com/privkey.pem;
     ssl_session_cache builtin:1000 shared:SSL:10m;
     ssl_protocols TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
     ssl_ciphers HIGH:!aNULL:!eNULL:!EXPORT:!CAMELLIA:!DES:!MD5:!PSK:!RC4;
